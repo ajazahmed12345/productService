@@ -1,14 +1,21 @@
 package com.ajaz.productservice.models;
 
-import lombok.Getter;
-import lombok.Setter;
+import jakarta.persistence.Entity;
+import jakarta.persistence.ManyToOne;
+import lombok.*;
 
 @Getter
 @Setter
+@Entity
+@NoArgsConstructor
+@AllArgsConstructor
 public class Product extends BaseModel{
     private String title;
-    private String desc;
+    private String description;
     private String image;
+    @ManyToOne
     private Category category;
     private double price;
+
+
 }
