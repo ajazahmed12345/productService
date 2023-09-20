@@ -77,10 +77,15 @@ public class SelfProductServiceImpl implements ProductService{
         return product1;
     }
 //
-//    @Override
-//    public GenericProductDto deleteProductById(Long id) {
-//        return null;
-//    }
+    @Override
+    public void deleteProductById(UUID id) throws NotFoundException{
+        Optional<Product> productOptional = productRepository.findById(id);
+        if(productOptional.isEmpty()){
+            throw new NotFoundException("Product to be deleted not found");
+        }
+
+        productRepository.deleteById(id);
+    }
 //
     @Override
     public Product updateProductById(UUID id, ProductDto product){

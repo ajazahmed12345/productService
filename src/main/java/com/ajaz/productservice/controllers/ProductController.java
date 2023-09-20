@@ -62,10 +62,23 @@ public class ProductController {
         return productService.createProduct(product);
     }
 //
-//    @DeleteMapping("/{id}")
-//    public GenericProductDto deleteProductById(@PathVariable("id") Long id){
-//        return productService.deleteProductById(id);
-//    }
+    @DeleteMapping("/{id}")
+    public ResponseEntity<String> deleteProductById(@PathVariable("id") UUID id){
+        try {
+            productService.deleteProductById(id);
+        }
+        catch (NotFoundException e){
+            return new ResponseEntity<>(
+                    "Product not found in the Database!!!",
+                    HttpStatus.NOT_FOUND
+            );
+        }
+
+        return new ResponseEntity<>(
+                "Deleted product with " + id + " successfully",
+                HttpStatus.OK
+        );
+    }
 //
     @PutMapping("/{id}")
     public Product updateProductById(@PathVariable("id") UUID id, @RequestBody ProductDto product){

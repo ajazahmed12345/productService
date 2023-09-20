@@ -31,4 +31,7 @@ public interface ProductRepository extends JpaRepository<Product, UUID> {
 
     @Override
     List<Product> findAll();
+
+    @Override
+    void deleteById(UUID id);
 }
