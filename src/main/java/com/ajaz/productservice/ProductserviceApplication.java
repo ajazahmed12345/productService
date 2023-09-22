@@ -10,6 +10,7 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+import java.util.List;
 import java.util.UUID;
 
 @SpringBootApplication
@@ -39,6 +40,7 @@ public class ProductserviceApplication implements CommandLineRunner {
 
         Price price = new Price();
         price.setPrice(3000);
+        price.setCurrency("Rupee");
 
 //        Price savedPrice = priceRepository.save(price);
 
@@ -52,6 +54,9 @@ public class ProductserviceApplication implements CommandLineRunner {
 
         productRepository.save(product);
 
+//        List<Product> products = productRepository.findAllByPrice_Currency("Rupee");
+
+//        Product products1 = productRepository.findAllByTitle("Himalaya neem face wash");
 //        productRepository.deleteById();
 
        System.out.println("mai chal rha!!!");

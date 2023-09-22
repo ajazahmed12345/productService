@@ -1,5 +1,6 @@
 package com.ajaz.productservice.services;
 
+import com.ajaz.productservice.dtos.CategoryDto;
 import com.ajaz.productservice.dtos.GenericProductDto;
 import com.ajaz.productservice.dtos.ProductDto;
 import com.ajaz.productservice.exceptions.NotFoundException;
@@ -11,6 +12,7 @@ import com.ajaz.productservice.repositories.PriceRepository;
 import com.ajaz.productservice.repositories.ProductRepository;
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -60,21 +62,28 @@ public class SelfProductServiceImpl implements ProductService{
         ans.setUuid(product.getId());
         ans.setDescription(product.getDescription());
 
-        Category category = new Category();
-        category.setName(product.getCategory());
-        category.setProducts(new ArrayList<>());
+//        Category category = new Category();
+//        category.setName(product.getCategory());
+//        category.setProducts(new ArrayList<>());
 
-        Price price = new Price();
-        price.setPrice(product.getPrice());
+//        Price price = new Price();
+//        price.setPrice(product.getPrice());
 
-        ans.setCategory(category);
+        ans.setCategory(convertCategoryDtoToCategory(product.getCategory()));
         ans.setImage(product.getImage());
-        ans.setPrice(price);
+        ans.setPrice(product.getPrice());
         ans.setTitle(product.getTitle());
 
         Product product1 = productRepository.save(ans);
 
         return product1;
+    }
+
+    public Category convertCategoryDtoToCategory(CategoryDto categoryDto){
+        Category category = new Category();
+        category.setName(categoryDto.getName());
+
+        return category;
     }
 //
     @Override
@@ -100,15 +109,16 @@ public class SelfProductServiceImpl implements ProductService{
         ans.setImage(product.getImage());
         ans.setTitle(product.getTitle());
         ans.setDescription(product.getDescription());
+//        ans.setPrice()
 
 //      Category category = categoryRepository.findById(ans.get);
 
         Category category = new Category();
-        category.setName(product.getCategory());
+//        category.setName(product.getCategory());
 
         Price price = new Price();
-        price.setPrice(product.getPrice());
-
+//        price.setPrice(product.getPrice());
+//
         ans.setCategory(category);
         ans.setPrice(price);
 
@@ -116,6 +126,12 @@ public class SelfProductServiceImpl implements ProductService{
 
         return savedProduct;
 
+//        return null;
+    }
+
+    @Override
+    public Product getProductByTitleAndPrice(String title, double price) {
+        return productRepository.findByTitleAndPrice_Price(title, price);
 //        return null;
     }
 

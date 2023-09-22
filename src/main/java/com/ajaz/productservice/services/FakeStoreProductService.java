@@ -79,4 +79,14 @@ public class FakeStoreProductService implements ProductService{
 //        return convertFakeStoreProductToGenericProduct(fakeStoreProductServiceClient.updateProductById(id, fakeStoreProductDto));
         return null;
     }
+
+    @Override
+    public Product getProductByTitleAndPrice(String title, double price) {
+        return null;
+    }
+
+//    @Override
+//    public List<Product> getProductsByACategory(String categoryName) {
+//        return null;
+//    }
 }

@@ -1,9 +1,11 @@
 package com.ajaz.productservice.controllers;
 
+import com.ajaz.productservice.dtos.CategoryDto;
 import com.ajaz.productservice.dtos.ExceptionDto;
 import com.ajaz.productservice.dtos.GenericProductDto;
 import com.ajaz.productservice.dtos.ProductDto;
 import com.ajaz.productservice.exceptions.NotFoundException;
+import com.ajaz.productservice.models.Category;
 import com.ajaz.productservice.models.Product;
 import com.ajaz.productservice.services.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,12 +39,19 @@ public class ProductController {
         ProductDto productDto = new ProductDto();
         productDto.setId(product.getUuid());
         productDto.setDescription(product.getDescription());
-        productDto.setCategory(product.getCategory().getName());
+        productDto.setCategory(convertCategoryToCategoryDto(product.getCategory()));
         productDto.setImage(productDto.getImage());
-        productDto.setPrice(product.getPrice().getPrice());
+        productDto.setPrice(product.getPrice());
         productDto.setTitle(product.getTitle());
 
         return productDto;
+    }
+
+    public CategoryDto convertCategoryToCategoryDto(Category category){
+        CategoryDto categoryDto = new CategoryDto();
+        categoryDto.setName(categoryDto.getName());
+
+        return categoryDto;
     }
 
     @GetMapping()
@@ -59,6 +68,7 @@ public class ProductController {
     @PostMapping()
     public Product createProduct(@RequestBody ProductDto product){
 //        return productService;
+        System.out.println(product.getCategory().getName());
         return productService.createProduct(product);
     }
 //
@@ -86,6 +96,31 @@ public class ProductController {
             return productService.updateProductById(id, product);
 
     }
+
+    @GetMapping("/{title}/{price}")
+    public ProductDto getProductByTitleAndPrice(@PathVariable("title") String title,
+                                             @PathVariable("price") double price){
+        Product product = productService.getProductByTitleAndPrice(title, price);
+        ProductDto ans = convertProductToProductDto(product);
+        return ans;
+    }
+
+//    @GetMapping("/categories/{categoryName}")
+//    public List<ProductDto> getProductsByACategory(@PathVariable("categoryName") String categoryName){
+//        List<Product> products = productService.getProductsByACategory(categoryName);
+//
+//        List<ProductDto> productDtos = new ArrayList<>();
+//
+//        for(Product product :  products){
+//            ProductDto productDto = new ProductDto();
+//            productDto.setTitle(product.getTitle());
+//            productDto.setDescription(product.getDescription());
+//            productDto.setImage(product.getImage());
+//            productDto.setPrice(product.getPrice());
+//            productDto.setCategory(convertCategoryToCategoryDto(product.getCategory()));
+//        }
+//        return productDtos;
+//    }
 
 
 

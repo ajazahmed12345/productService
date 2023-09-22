@@ -23,7 +23,7 @@ public class ProductDto {
     private String description;
     private String image;
 
-    private String category;
+    private CategoryDto category;
 
-    private double price;
+    private Price price;
 }

@@ -15,7 +15,7 @@ import java.util.List;
 public class Order extends BaseModel{
     @ManyToMany
     @JoinTable(
-            name = "product_prders",
+            name = "product_orders",
             joinColumns = @JoinColumn(name = "order_id"),
             inverseJoinColumns = @JoinColumn(name = "product_id")
     )

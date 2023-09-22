@@ -20,4 +20,8 @@ public interface ProductService {
 
     void deleteProductById(UUID id) throws NotFoundException;
 
+    Product getProductByTitleAndPrice(String title, double price);
+
+//    List<Product> getProductsByACategory(String categoryName);
+
 }
