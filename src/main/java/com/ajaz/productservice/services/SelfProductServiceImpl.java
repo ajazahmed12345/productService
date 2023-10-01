@@ -37,12 +37,23 @@ public class SelfProductServiceImpl implements ProductService{
     @Override
     public Product getProductById(UUID id) throws NotFoundException{
         Optional<Product> productOptional = productRepository.findById(id);
+
+
         if(productOptional.isEmpty()){
             throw new NotFoundException("Product: " + id + " not found.");
         }
 
+        printProduct(productOptional.get());
+
         return productOptional.get();
+
+
 //        return null;
+    }
+
+    public void printProduct(Product product){
+        System.out.println(product.getCategory().getUuid());
+        System.out.println(product.getPrice().getCurrency());
     }
 
     @Override
@@ -97,11 +108,11 @@ public class SelfProductServiceImpl implements ProductService{
     }
 //
     @Override
-    public Product updateProductById(UUID id, ProductDto product){
+    public Product updateProductById(UUID id, Product product){
 
         Optional<Product> productOptional = productRepository.findById(id);
         if(productOptional.isEmpty()){
-            Product currentProduct = convertProductDtoToProduct(product);
+            Product currentProduct = product;
             return productRepository.save(currentProduct);
         }
 
@@ -113,14 +124,14 @@ public class SelfProductServiceImpl implements ProductService{
 
 //      Category category = categoryRepository.findById(ans.get);
 
-        Category category = new Category();
+//        Category category = new Category();
 //        category.setName(product.getCategory());
 
-        Price price = new Price();
+//        Price price = new Price();
 //        price.setPrice(product.getPrice());
 //
-        ans.setCategory(category);
-        ans.setPrice(price);
+        ans.setCategory(product.getCategory());
+        ans.setPrice(product.getPrice());
 
         Product savedProduct = productRepository.save(ans);
 

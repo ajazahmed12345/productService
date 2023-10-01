@@ -40,18 +40,41 @@ public class ProductController {
         productDto.setId(product.getUuid());
         productDto.setDescription(product.getDescription());
         productDto.setCategory(convertCategoryToCategoryDto(product.getCategory()));
-        productDto.setImage(productDto.getImage());
+        productDto.setImage(product.getImage());
         productDto.setPrice(product.getPrice());
         productDto.setTitle(product.getTitle());
 
         return productDto;
     }
 
+    public Product convertProductDtoToProduct(ProductDto productDto){
+        Product product = new Product();
+
+        product.setTitle(productDto.getTitle());
+        product.setDescription(productDto.getDescription());
+        product.setImage(productDto.getImage());
+        product.setCategory(convertCategoryDtoToCategory(productDto.getCategory()));
+        product.setPrice(productDto.getPrice());
+
+        return product;
+    }
+
     public CategoryDto convertCategoryToCategoryDto(Category category){
         CategoryDto categoryDto = new CategoryDto();
-        categoryDto.setName(categoryDto.getName());
+
+        categoryDto.setId(category.getUuid());
+        categoryDto.setName(category.getName());
 
         return categoryDto;
+    }
+
+    public Category convertCategoryDtoToCategory(CategoryDto categoryDto){
+        Category category = new Category();
+
+        category.setUuid(categoryDto.getId());
+        category.setName(categoryDto.getName());
+
+        return category;
     }
 
     @GetMapping()
@@ -91,7 +114,7 @@ public class ProductController {
     }
 //
     @PutMapping("/{id}")
-    public Product updateProductById(@PathVariable("id") UUID id, @RequestBody ProductDto product){
+    public Product updateProductById(@PathVariable("id") UUID id, @RequestBody Product product){
 
             return productService.updateProductById(id, product);
 

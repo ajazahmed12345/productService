@@ -2,17 +2,16 @@ package com.ajaz.productservice.controllers;
 
 import com.ajaz.productservice.dtos.CategoryDto;
 import com.ajaz.productservice.dtos.ProductDto;
+import com.ajaz.productservice.dtos.RequestTitlesDto;
 import com.ajaz.productservice.exceptions.NotFoundException;
 import com.ajaz.productservice.models.Category;
 import com.ajaz.productservice.models.Product;
 import com.ajaz.productservice.services.CategoryService;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 @RestController
@@ -75,4 +74,16 @@ public class CategoryController {
 
         return categoryDto;
     }
+
+    @GetMapping("/titles/")
+    public List<String> getProductTitles(@RequestBody RequestTitlesDto request){
+        List<UUID> uuids = new ArrayList<>();
+
+        for(String uuid : request.getUuids()){
+            uuids.add(UUID.fromString(uuid));
+        }
+
+        return categoryService.getProductTitles(uuids);
+    }
+
 }

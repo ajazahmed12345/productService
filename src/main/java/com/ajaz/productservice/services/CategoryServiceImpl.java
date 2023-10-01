@@ -57,5 +57,23 @@ public class CategoryServiceImpl implements CategoryService{
         return products;
     }
 
+    @Override
+    public List<String> getProductTitles(List<UUID> uuids) {
 
+        List<Category> categories = categoryRepository.findAllById(uuids);
+
+
+        List<String> titles = new ArrayList<>();
+
+        categories.forEach(
+                category -> {
+                    category.getProducts().forEach(
+                            product -> titles.add(product.getTitle() + ", " + product.getCategory().getUuid())
+                    );
+                }
+        );
+
+
+        return titles;
+    }
 }

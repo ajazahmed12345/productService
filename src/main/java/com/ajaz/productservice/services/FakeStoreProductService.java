@@ -14,6 +14,7 @@ import java.util.List;
 import java.util.UUID;
 
 
+//@Primary
 @Service("fakeStoreProductService")
 public class FakeStoreProductService implements ProductService{
 
@@ -68,7 +69,7 @@ public class FakeStoreProductService implements ProductService{
     }
 //
     @Override
-    public Product updateProductById(UUID id, ProductDto product) {
+    public Product updateProductById(UUID id, Product product) {
 //        FakeStoreProductDto fakeStoreProductDto = new FakeStoreProductDto();
 //        fakeStoreProductDto.setId(product.getId());
 //        fakeStoreProductDto.setDescription(product.getDescription());
