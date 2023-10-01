@@ -114,9 +114,9 @@ public class ProductController {
     }
 //
     @PutMapping("/{id}")
-    public Product updateProductById(@PathVariable("id") UUID id, @RequestBody Product product){
+    public ProductDto updateProductById(@PathVariable("id") UUID id, @RequestBody Product product){
 
-            return productService.updateProductById(id, product);
+            return convertProductToProductDto(productService.updateProductById(id, product));
 
     }
 

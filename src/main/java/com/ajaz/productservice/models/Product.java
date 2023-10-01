@@ -15,7 +15,7 @@ public class Product extends BaseModel{
     private String title;
     private String description;
     private String image;
-    @ManyToOne(cascade = {CascadeType.PERSIST})
+    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinColumn(name = "category")
 
     private Category category;
