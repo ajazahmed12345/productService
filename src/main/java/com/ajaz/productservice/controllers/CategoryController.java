@@ -7,6 +7,8 @@ import com.ajaz.productservice.exceptions.NotFoundException;
 import com.ajaz.productservice.models.Category;
 import com.ajaz.productservice.models.Product;
 import com.ajaz.productservice.services.CategoryService;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -25,16 +27,16 @@ public class CategoryController {
     }
 
     @GetMapping("/{uuid}")
-    public CategoryDto getCategoryById(@PathVariable("uuid") String uuid){
+    public ResponseEntity<Object> getCategoryById(@PathVariable("uuid") String uuid){
         Category category;
         try {
              category = categoryService.getCategoryById(uuid);
         }catch(NotFoundException e){
-//            System.out.println("Exception aa gya!");
-            return null;
+            System.out.println("Exception aa gya!");
+            return new ResponseEntity<>("Category with id: " + uuid + " does not exist.", HttpStatus.NOT_FOUND);
         }
 
-        return convertCategoryToCategoryDto(category);
+        return new ResponseEntity<>(convertCategoryToCategoryDto(category), HttpStatus.OK);
     }
 
     @GetMapping()
@@ -46,8 +48,15 @@ public class CategoryController {
     }
 
     @GetMapping("/name/{categoryName}")
-    public List<ProductDto> getProductsByACategory(@PathVariable("categoryName") String categoryName){
-        List<Product> products = categoryService.getProductsByACategory(categoryName);
+    public ResponseEntity<List<ProductDto>> getProductsByACategory(@PathVariable("categoryName") String categoryName){
+
+        List<Product> products;
+
+        try {
+            products = categoryService.getProductsByACategory(categoryName);
+        }catch(NotFoundException e){
+            return new ResponseEntity<>(new ArrayList<>(), HttpStatus.NOT_FOUND);
+        }
 
         List<ProductDto> productDtos = new ArrayList<>();
 
@@ -62,7 +71,7 @@ public class CategoryController {
 
             productDtos.add(productDto);
         }
-        return productDtos;
+        return new ResponseEntity<>(productDtos, HttpStatus.OK);
     }
 
 

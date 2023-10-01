@@ -45,7 +45,7 @@ public class FakeStoreProductService implements ProductService{
 //    }
 //
     @Override
-    public Product createProduct(ProductDto product) {
+    public Product createProduct(Product product){
 //        return convertFakeStoreProductToGenericProduct(fakeStoreProductServiceClient.createProduct(product));
         return null;
     }
@@ -69,7 +69,7 @@ public class FakeStoreProductService implements ProductService{
     }
 //
     @Override
-    public Product updateProductById(UUID id, Product product) {
+    public Product updateProductById(UUID id, Product product) throws NotFoundException{
 //        FakeStoreProductDto fakeStoreProductDto = new FakeStoreProductDto();
 //        fakeStoreProductDto.setId(product.getId());
 //        fakeStoreProductDto.setDescription(product.getDescription());

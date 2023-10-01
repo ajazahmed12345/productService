@@ -27,8 +27,6 @@ public class CategoryServiceImpl implements CategoryService{
 
         Category category = categoryOptional.get();
 
-//        List<Product> products = category.getProducts();
-
         return category;
     }
 
@@ -37,24 +35,19 @@ public class CategoryServiceImpl implements CategoryService{
         return categoryRepository.findAll();
     }
 
-//    @Override
-//    public List<Product> getProductsByACategory(String categoryName) {
-//        return null;
-//    }
     @Override
-    public List<Product> getProductsByACategory(String categoryName) {
+    public List<Product> getProductsByACategory(String categoryName) throws NotFoundException{
 
-        List<Category> categories = categoryRepository.findAllByName(categoryName);
 
-        List<Product> products = new ArrayList<>();
+        // only one Category object Optional<Category>
 
-        for(Category category : categories){
-            products.addAll(
-                    category.getProducts()
-            );
+        Optional<Category> categoryOptional = categoryRepository.findByName(categoryName);
+
+        if(categoryOptional.isEmpty()){
+            throw new NotFoundException("Category Name not found in the database");
         }
 
-        return products;
+        return categoryOptional.get().getProducts();
     }
 
     @Override

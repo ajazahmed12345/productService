@@ -34,32 +34,32 @@ public class ProductserviceApplication implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        Category category = new Category();
-        category.setName("herbal products");
-//        Category savedCategory = categoryRepository.save(category);
-
-        Price price = new Price();
-        price.setPrice(3000);
-        price.setCurrency("Rupee");
-
-//        Price savedPrice = priceRepository.save(price);
-
-        Product product = new Product();
-        product.setTitle("Himalaya neem face wash");
-
-        product.setDescription("best ever");
-
-        product.setCategory(category);
-        product.setPrice(price);
-
-        productRepository.save(product);
-
-//        List<Product> products = productRepository.findAllByPrice_Currency("Rupee");
-
-//        Product products1 = productRepository.findAllByTitle("Himalaya neem face wash");
-//        productRepository.deleteById();
-
-       System.out.println("mai chal rha!!!");
+//        Category category = new Category();
+//        category.setName("herbal products");
+////        Category savedCategory = categoryRepository.save(category);
+//
+//        Price price = new Price();
+//        price.setPrice(3000);
+//        price.setCurrency("Rupee");
+//
+////        Price savedPrice = priceRepository.save(price);
+//
+//        Product product = new Product();
+//        product.setTitle("Himalaya neem face wash");
+//
+//        product.setDescription("best ever");
+//
+//        product.setCategory(category);
+//        product.setPrice(price);
+//
+//        productRepository.save(product);
+//
+////        List<Product> products = productRepository.findAllByPrice_Currency("Rupee");
+//
+////        Product products1 = productRepository.findAllByTitle("Himalaya neem face wash");
+////        productRepository.deleteById();
+//
+//       System.out.println("mai chal rha!!!");
     }
 
 

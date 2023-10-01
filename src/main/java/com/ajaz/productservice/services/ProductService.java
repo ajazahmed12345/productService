@@ -12,11 +12,11 @@ import java.util.UUID;
 
 public interface ProductService {
     Product getProductById(UUID id) throws NotFoundException;
-    Product createProduct(ProductDto product);
+    Product createProduct(Product product);
 //
     List<Product> getAllProducts();
 //    GenericProductDto deleteProductById(Long id);
-    Product updateProductById(UUID id, Product product);
+    Product updateProductById(UUID id, Product product) throws NotFoundException;
 
     void deleteProductById(UUID id) throws NotFoundException;
 

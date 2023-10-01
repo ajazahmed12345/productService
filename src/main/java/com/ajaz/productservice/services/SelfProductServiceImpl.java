@@ -62,33 +62,47 @@ public class SelfProductServiceImpl implements ProductService{
 //        return null;
     }
 //
+
+
+    // modification needed
     @Override
-    public Product createProduct(ProductDto product) {
-        Product currentProduct = convertProductDtoToProduct(product);
-        return productRepository.save(currentProduct);
-    }
-
-    public Product convertProductDtoToProduct(ProductDto product){
+    public Product createProduct(Product product) {
         Product ans = new Product();
-        ans.setUuid(product.getId());
+        ans.setTitle(product.getTitle());
         ans.setDescription(product.getDescription());
-
-//        Category category = new Category();
-//        category.setName(product.getCategory());
-//        category.setProducts(new ArrayList<>());
-
-//        Price price = new Price();
-//        price.setPrice(product.getPrice());
-
-        ans.setCategory(convertCategoryDtoToCategory(product.getCategory()));
         ans.setImage(product.getImage());
         ans.setPrice(product.getPrice());
-        ans.setTitle(product.getTitle());
 
-        Product product1 = productRepository.save(ans);
+        Optional<Category> categoryOptional = categoryRepository.findByName(product.getCategory().getName());
 
-        return product1;
+        if(categoryOptional.isPresent()){
+            ans.setCategory(categoryOptional.get());
+        }
+        else{
+            Category category = new Category();
+            category.setName(product.getCategory().getName());
+            ans.setCategory(category);
+        }
+
+
+
+        return productRepository.save(ans);
     }
+
+//    public Product convertProductDtoToProduct(ProductDto product){
+//        Product ans = new Product();
+//        ans.setUuid(product.getId());
+//        ans.setDescription(product.getDescription());
+//
+//        ans.setCategory(convertCategoryDtoToCategory(product.getCategory()));
+//        ans.setImage(product.getImage());
+//        ans.setPrice(product.getPrice());
+//        ans.setTitle(product.getTitle());
+//
+//        Product product1 = productRepository.save(ans);
+//
+//        return product1;
+//    }
 
     public Category convertCategoryDtoToCategory(CategoryDto categoryDto){
         Category category = new Category();
@@ -108,12 +122,15 @@ public class SelfProductServiceImpl implements ProductService{
     }
 //
     @Override
-    public Product updateProductById(UUID id, Product product){
+    public Product updateProductById(UUID id, Product product) throws NotFoundException{
 
         Optional<Product> productOptional = productRepository.findById(id);
         if(productOptional.isEmpty()){
-            Product currentProduct = product;
-            return productRepository.save(currentProduct);
+//            Product currentProduct = product;
+//            return productRepository.save(currentProduct);
+
+            throw new NotFoundException("Product that you want to update with id: " + id + " does not exist.");
+            // throw an exception saying that product that you want to update does not exist
         }
 
         Product ans = productOptional.get();
@@ -129,15 +146,24 @@ public class SelfProductServiceImpl implements ProductService{
 
 //        Price price = new Price();
 //        price.setPrice(product.getPrice());
-//
-        ans.setCategory(product.getCategory());
+
+        Optional<Category> categoryOptional = categoryRepository.findByName(product.getCategory().getName());
+
+        if(categoryOptional.isPresent()){
+            ans.setCategory(categoryOptional.get());
+        }
+        else{
+            Category category = new Category();
+            category.setName(product.getCategory().getName());
+            ans.setCategory(category);
+        }
+
+
         ans.setPrice(product.getPrice());
 
-        Product savedProduct = productRepository.save(ans);
+        return productRepository.save(ans);
 
-        return savedProduct;
 
-//        return null;
     }
 
     @Override

@@ -11,7 +11,7 @@ public interface CategoryService {
     Category getCategoryById(String uuid) throws NotFoundException;
     List<Category> getAllCategories();
 
-    List<Product> getProductsByACategory(String categoryName);
+    List<Product> getProductsByACategory(String categoryName) throws NotFoundException;
 
     List<String> getProductTitles(List<UUID> uuids);
 }

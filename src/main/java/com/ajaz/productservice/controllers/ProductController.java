@@ -89,10 +89,11 @@ public class ProductController {
     }
 //
     @PostMapping()
-    public Product createProduct(@RequestBody ProductDto product){
+    public ProductDto createProduct(@RequestBody ProductDto product){
 //        return productService;
         System.out.println(product.getCategory().getName());
-        return productService.createProduct(product);
+        Product temp = productService.createProduct(convertProductDtoToProduct(product));
+        return convertProductToProductDto(temp);
     }
 //
     @DeleteMapping("/{id}")
@@ -114,9 +115,15 @@ public class ProductController {
     }
 //
     @PutMapping("/{id}")
-    public ProductDto updateProductById(@PathVariable("id") UUID id, @RequestBody Product product){
+    public ResponseEntity<String> updateProductById(@PathVariable("id") UUID id, @RequestBody Product product){
+        ProductDto productDto;
+        try {
+            productDto = convertProductToProductDto(productService.updateProductById(id, product));
+        }catch(NotFoundException e){
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
+        }
 
-            return convertProductToProductDto(productService.updateProductById(id, product));
+        return new ResponseEntity<>("Updated the product with id: " + id, HttpStatus.OK);
 
     }
 
@@ -127,6 +134,21 @@ public class ProductController {
         ProductDto ans = convertProductToProductDto(product);
         return ans;
     }
+
+//    public Product convertProductDtoToProduct(ProductDto product){
+//        Product ans = new Product();
+//        ans.setUuid(product.getId());
+//        ans.setDescription(product.getDescription());
+//
+//        ans.setCategory(convertCategoryDtoToCategory(product.getCategory()));
+//        ans.setImage(product.getImage());
+//        ans.setPrice(product.getPrice());
+//        ans.setTitle(product.getTitle());
+//
+//       Product product1 = productRepository.save(ans);
+//
+//        return ans;
+//    }
 
 //    @GetMapping("/categories/{categoryName}")
 //    public List<ProductDto> getProductsByACategory(@PathVariable("categoryName") String categoryName){
