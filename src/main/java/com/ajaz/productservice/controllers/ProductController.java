@@ -115,13 +115,14 @@ public class ProductController {
     }
 //
     @PutMapping("/{id}")
-    public ResponseEntity<String> updateProductById(@PathVariable("id") UUID id, @RequestBody Product product){
-        ProductDto productDto;
-        try {
-            productDto = convertProductToProductDto(productService.updateProductById(id, product));
-        }catch(NotFoundException e){
-            return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
-        }
+    public ResponseEntity<String> updateProductById(@PathVariable("id") UUID id, @RequestBody Product product) throws NotFoundException {
+        ProductDto productDto = convertProductToProductDto(productService.updateProductById(id, product));
+//
+//        try {
+//            productDto = convertProductToProductDto(productService.updateProductById(id, product));
+//        }catch(NotFoundException e){
+//            return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
+//        }
 
         return new ResponseEntity<>("Updated the product with id: " + id, HttpStatus.OK);
 
