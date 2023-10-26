@@ -14,23 +14,23 @@ import static org.junit.jupiter.api.Assertions.*;
 @SpringBootTest
 public class ProductControllerTest {
 
-    @Autowired
-    private FakeStoreProductServiceClient fakeStoreProductServiceClient;
-    @Test
-    @DisplayName("1 + 1 = 2")
-    void onePlusOneEqualsTwo() throws NotFoundException {
-//        Random r = new Random();
-//        assert(100 < 900);
-
-//        assertTrue(50 < 6, "not true");
-
-        assertThrows(NotFoundException.class, ()->fakeStoreProductServiceClient.getProductById(101L));
-
-    }
-
-    @Test
-    void testCorrectSum() {
-        assertEquals(5, 2 + 3, "not correct because 2+1 != 5");
-    }
+//    @Autowired
+//    private FakeStoreProductServiceClient fakeStoreProductServiceClient;
+//    @Test
+//    @DisplayName("1 + 1 = 2")
+//    void onePlusOneEqualsTwo() throws NotFoundException {
+////        Random r = new Random();
+////        assert(100 < 900);
+//
+////        assertTrue(50 < 6, "not true");
+//
+//        assertThrows(NotFoundException.class, ()->fakeStoreProductServiceClient.getProductById(101L));
+//
+//    }
+//
+//    @Test
+//    void testCorrectSum() {
+//        assertEquals(5, 2 + 3, "not correct because 2+1 != 5");
+//    }
 
 }

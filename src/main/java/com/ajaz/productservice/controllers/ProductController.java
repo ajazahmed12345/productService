@@ -7,15 +7,19 @@ import com.ajaz.productservice.dtos.ProductDto;
 import com.ajaz.productservice.exceptions.NotFoundException;
 import com.ajaz.productservice.models.Category;
 import com.ajaz.productservice.models.Product;
+import com.ajaz.productservice.security.JwsTokenObj;
+import com.ajaz.productservice.security.TokenValidator;
 import com.ajaz.productservice.services.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 @RestController
@@ -24,15 +28,37 @@ public class ProductController {
 
 
     private ProductService productService;
+    private TokenValidator tokenValidator;
 
-    public ProductController(ProductService productService){
+    public ProductController(ProductService productService, TokenValidator tokenValidator)
+    {
         this.productService = productService;
+        this.tokenValidator = tokenValidator;
     }
 
 
-    @GetMapping("/{id}")
-    public ProductDto getProductById(@PathVariable("id") UUID id) throws NotFoundException{
-        return convertProductToProductDto(productService.getProductById(id));
+    @GetMapping("/getProductById/{userId}/{id}")
+    public ProductDto getProductById(@RequestHeader(HttpHeaders.AUTHORIZATION) String authToken, @PathVariable("userId") Long userId, @PathVariable("id") UUID id) throws NotFoundException{
+
+        System.out.println(authToken);
+
+        JwsTokenObj jwsObjTokenOptional = tokenValidator.validateToken(userId, authToken);
+
+
+//        JwsTokenObj jwsTokenObj = null;
+
+
+        if(authToken != null){
+            if(jwsObjTokenOptional == null){
+                return null;
+            }
+
+
+
+
+        }
+
+        return convertProductToProductDto(productService.getProductById(id, jwsObjTokenOptional.getUserId()));
     }
 
     public ProductDto convertProductToProductDto(Product product){

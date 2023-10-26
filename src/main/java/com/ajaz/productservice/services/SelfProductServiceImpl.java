@@ -35,15 +35,24 @@ public class SelfProductServiceImpl implements ProductService{
         this.priceRepository = priceRepository;
     }
     @Override
-    public Product getProductById(UUID id) throws NotFoundException{
+    public Product getProductById(UUID id, Long userIdTryingToAccess) throws NotFoundException {
         Optional<Product> productOptional = productRepository.findById(id);
 
 
-        if(productOptional.isEmpty()){
+        if (productOptional.isEmpty()) {
             throw new NotFoundException("Product: " + id + " not found.");
         }
 
         printProduct(productOptional.get());
+
+//        if product.getStatus().equals(ADMIN){
+//                if(product.getUserId().equals(userIdTryingToAccess)){
+//                    return product;
+//                }
+//
+//                return null;
+//        }
+
 
         return productOptional.get();
 
