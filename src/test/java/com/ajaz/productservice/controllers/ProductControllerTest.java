@@ -11,26 +11,23 @@ import java.util.Random;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+
 @SpringBootTest
 public class ProductControllerTest {
 
 //    @Autowired
 //    private FakeStoreProductServiceClient fakeStoreProductServiceClient;
 //    @Test
-//    @DisplayName("1 + 1 = 2")
-//    void onePlusOneEqualsTwo() throws NotFoundException {
-////        Random r = new Random();
-////        assert(100 < 900);
+//    void testOnePlusOneEqualsTrue(){
+//        assert(1+1 == 2);
 //
-////        assertTrue(50 < 6, "not true");
 //
-//        assertThrows(NotFoundException.class, ()->fakeStoreProductServiceClient.getProductById(101L));
+////        assertThrows(NotFoundException.class, () -> fakeStoreProductServiceClient.getProductById(200L));
+//        int[] arr1 = {1, 2, 3};
+//        int[] arr2 = {};
 //
-//    }
+//        assertArrayEquals(arr1, arr2);
 //
-//    @Test
-//    void testCorrectSum() {
-//        assertEquals(5, 2 + 3, "not correct because 2+1 != 5");
 //    }
 
 }

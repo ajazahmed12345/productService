@@ -37,28 +37,28 @@ public class ProductController {
     }
 
 
-    @GetMapping("/getProductById/{userId}/{id}")
-    public ProductDto getProductById(@RequestHeader(HttpHeaders.AUTHORIZATION) String authToken, @PathVariable("userId") Long userId, @PathVariable("id") UUID id) throws NotFoundException{
+    @GetMapping("/{id}")
+    public ProductDto getProductById(@PathVariable("id") UUID id) throws NotFoundException{
 
-        System.out.println(authToken);
+//        System.out.println(authToken);
+//
+//        JwsTokenObj jwsObjTokenOptional = tokenValidator.validateToken(userId, authToken);
+//
+//
+////        JwsTokenObj jwsTokenObj = null;
+//
+//
+//        if(authToken != null){
+//            if(jwsObjTokenOptional == null){
+//                return null;
+//            }
+//
+//
+//
+//
+//        }
 
-        JwsTokenObj jwsObjTokenOptional = tokenValidator.validateToken(userId, authToken);
-
-
-//        JwsTokenObj jwsTokenObj = null;
-
-
-        if(authToken != null){
-            if(jwsObjTokenOptional == null){
-                return null;
-            }
-
-
-
-
-        }
-
-        return convertProductToProductDto(productService.getProductById(id, jwsObjTokenOptional.getUserId()));
+        return convertProductToProductDto(productService.getProductById(id));
     }
 
     public ProductDto convertProductToProductDto(Product product){

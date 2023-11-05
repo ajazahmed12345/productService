@@ -15,7 +15,7 @@ public class TokenValidator {
 
     private RestTemplateBuilder restTemplateBuilder;
 
-    private String authServiceValidateUrl = "http://localhost:8081/auth/validate";
+    private String authServiceValidateUrl = "http://localhost:9000/auth/validate";
 
     public TokenValidator(RestTemplateBuilder restTemplateBuilder){
         this.restTemplateBuilder = restTemplateBuilder;
@@ -29,8 +29,16 @@ public class TokenValidator {
                 token
         );
 
+        //Jwt<?, ?> jwt = new DefaultJwtParser().parse(unsignedToken);
 
         ResponseEntity<JwsTokenObj> response = restTemplate.postForEntity(authServiceValidateUrl, validateRequestDto, JwsTokenObj.class);
+//        DefaultJwtP
+
+//        int i = Jwts.lastIndexOf('.');
+//        String withoutSignature = jws.substring(0, i+1);
+//        Jwt<Header,Claims> untrusted = Jwts.parser().parseClaimsJwt(withoutSignature);
+
+
 
         System.out.println(response.getBody().getUserId());
 

@@ -58,7 +58,7 @@ public class FakeStoreProductServiceClient{
 
         if(fakeStoreProductDto == null){
             throw new NotFoundException("product with id: " + id + " NOT found");
-//            return null;
+          //  return null;
         }
 
         return fakeStoreProductDto;

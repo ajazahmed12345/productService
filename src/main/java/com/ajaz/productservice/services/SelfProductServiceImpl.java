@@ -35,7 +35,7 @@ public class SelfProductServiceImpl implements ProductService{
         this.priceRepository = priceRepository;
     }
     @Override
-    public Product getProductById(UUID id, Long userIdTryingToAccess) throws NotFoundException {
+    public Product getProductById(UUID id) throws NotFoundException {
         Optional<Product> productOptional = productRepository.findById(id);
 
 

@@ -11,7 +11,7 @@ import java.util.Optional;
 import java.util.UUID;
 
 public interface ProductService {
-    Product getProductById(UUID id, Long userIdTryingToAccess) throws NotFoundException;
+    Product getProductById(UUID id) throws NotFoundException;
     Product createProduct(Product product);
 //
     List<Product> getAllProducts();

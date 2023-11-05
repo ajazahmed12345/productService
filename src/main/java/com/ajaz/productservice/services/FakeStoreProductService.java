@@ -27,7 +27,7 @@ public class FakeStoreProductService implements ProductService{
 
 
     @Override
-    public Product getProductById(UUID id, Long userIdTryingToAccess) throws NotFoundException {
+    public Product getProductById(UUID id) throws NotFoundException {
 //        return convertFakeStoreProductToGenericProduct(fakeStoreProductServiceClient.getProductById(id));
         return null;
     }
